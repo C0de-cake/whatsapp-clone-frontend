@@ -1,0 +1,45 @@
+@import "../assets/scss/bootstrap-variables";
+
+
+.main-background {
+  background-color: $bg-conversation-color;
+  height: calc(100vh - $main-margin * 2);
+}
+
+.main-grid {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 0 0;
+  grid-template-areas:
+    "navbar header"
+"conversations chat"
+"conversations send-message";
+  grid-template-columns: 0.4fr 1fr;
+}
+
+.wac-navbar {
+  grid-area: navbar;
+}
+
+.header {
+  grid-area: header;
+}
+
+.conversations {
+  grid-area: conversations;
+}
+
+.chat {
+  grid-area: chat;
+}
+
+.send-message {
+  grid-area: send-message;
+  border-left: 1px solid $layout-border-color;
+}
+
+.toast-container {
+  top: 0;
+  right: 2%;
+  z-index: 1041;
+}

@@ -1,1 +1,140 @@
-/* You can add global styles to this file, and also import other style files */
+@import './assets/scss/_bootstrap-variables';
+@import 'bootstrap/scss/bootstrap';
+//@import '@ctrl/ngx-emoji-mart/picker';
+
+fa-icon {
+  color: $icon-color;
+}
+
+.btn-menu-fs {
+  font-size: 20px;
+}
+
+.btn-menu {
+  cursor: pointer;
+  width: 45px;
+  height: 45px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-menu-active {
+  background-color: $btn-menu-active-color;
+  border-radius: 25px;
+  border-color: $btn-menu-active-color;
+}
+
+.offcanvas {
+  margin-top: $main-margin;
+  margin-bottom: $main-margin;
+  left: $main-margin !important;
+  width: 27.5vw !important;
+  height: calc(100% - ($main-margin * 2));
+
+  > :first-child {
+    height: 100%;
+  }
+
+  #content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    #header {
+      .title {
+        color: $offcanvas-title-color;
+        font-size: 19px;
+      }
+
+      fa-icon {
+        color: $offcanvas-title-color;
+        font-size: 19px;
+      }
+    }
+
+    #main {
+      flex: 1;
+    }
+  }
+}
+
+.avatar-unknown {
+  border-radius: 40px;
+  font-size: 22px;
+  display: block;
+  width: 45px;
+  height: 45px;
+  padding-top: 4px;
+  text-align: center;
+  vertical-align: center;
+  background-color: $white;
+  color: $bg-conversation-color;
+}
+
+
+#user-container, .conversation-container {
+  :hover {
+    background-color: $menu-bg-color;
+    cursor: pointer;
+  }
+
+  .user {
+    .avatar-unknown {
+      border-radius: 50px;
+      font-size: 30px;
+      display: block;
+      width: 50px;
+      height: 50px;
+      text-align: center;
+      vertical-align: center;
+      background-color: #6A7176;
+      color: #CFD4D7;
+    }
+  }
+
+  .separator {
+    border-top: 1px solid $menu-bg-color;
+    margin-left: 90px;
+  }
+}
+
+.subtitle {
+  color: $secondary;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.emoji-mart-dark {
+  border-color: $menu-bg-color !important;
+  background-color: $menu-bg-color !important;
+  border-radius: 16px !important;
+
+  .emoji-mart-category-label span {
+    color: $secondary !important;
+    background-color: $menu-bg-color !important;
+    font-family: $font-family-base !important;
+    font-weight: 400 !important;
+  }
+
+  .emoji-mart-search {
+    input {
+      background-color: $input-bg !important;
+      border-color: $input-bg !important;
+      color: $input-color !important;
+    }
+
+    input::placeholder {
+      color: $send-color !important;
+    }
+  }
+
+  .emoji-mart-anchor-selected {
+    color: $primary !important;
+    span {
+      background-color: $primary !important;
+    }
+  }
+}
