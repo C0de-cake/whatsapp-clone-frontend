@@ -74,6 +74,10 @@ export class ConversationService {
       conversation.messages
         .forEach(message => message.sendDate = dayjs(message.sendDate));
     }
+
+    conversation.members.forEach((member: BaseUser) => {
+      member.lastSeen = dayjs(member.lastSeen);
+    });
   }
 
   private sortConversationByLastMessage(conversations: Array<Conversation>) {

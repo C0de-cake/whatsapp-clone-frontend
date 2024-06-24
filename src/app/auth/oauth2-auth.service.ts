@@ -5,10 +5,11 @@ import Keycloak from "keycloak-js";
 import {environment} from "../../environments/environment";
 import {ConnectedUser} from "../shared/model/user.model";
 import {State} from "../shared/model/state.model";
-import {catchError, from, interval, Observable, of, shareReplay, switchMap} from "rxjs";
+import {catchError, from, interval, Observable, of, shareReplay, Subject, switchMap} from "rxjs";
 import {fromPromise} from "rxjs/internal/observable/innerFrom";
 import {AuthModalComponent} from "./auth-modal/auth-modal.component";
 import {SseService} from "../messages/sse.service";
+import dayjs, {Dayjs} from "dayjs";
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,9 @@ export class Oauth2AuthService {
   private MIN_TOKEN_VALIDITY_MILLISECONDS = 10000;
 
   private fetchUserHttp$ = new Observable<ConnectedUser>();
+
+  private lastSeen$ = new Subject<State<Dayjs>>();
+  lastSeen = this.lastSeen$.asObservable();
 
   constructor() {
     this.initFetchUserCaching(false);
@@ -112,6 +116,15 @@ export class Oauth2AuthService {
 
   goToProfilePage(): void {
     this.keycloak.accountManagement();
+  }
+
+  handleLastSeen(userPublicId: string): void {
+    const params = new HttpParams().set("publicId", userPublicId);
+    this.http.get<Date>(`${environment.API_URL}/users/get-last-seen`, {params})
+      .subscribe({
+        next: lastSeen => this.lastSeen$.next(State.Builder<Dayjs>().forSuccess(dayjs(lastSeen))),
+        error: err => this.lastSeen$.next(State.Builder<Dayjs>().forError(err))
+      });
   }
 
 }

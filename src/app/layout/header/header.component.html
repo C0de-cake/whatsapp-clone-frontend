@@ -1,0 +1,39 @@
+<div class="w-100 wac-header">
+  <div class="p-3 d-flex justify-content-between align-items-center">
+    @if (userSelected) {
+      <div class="d-flex align-items-center">
+        <div class="avatar">
+          @if (userSelected.imageUrl) {
+            <img src="{{userSelected.imageUrl}}" alt="user-avatar" class="avatar-unknown" width="50px"/>
+          } @else {
+            <div>
+              <fa-icon icon="user" class="avatar-unknown"></fa-icon>
+            </div>
+          }
+        </div>
+        <div class="d-flex flex-column ms-3">
+          <div class="fs-4">{{ userSelected.firstName }} {{ userSelected.lastName }}</div>
+          <div class="subtitle fs-6">{{ computeLastSeen() }}</div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center align-items-center">
+        <div class="search me-3 btn-menu-fs">
+          <fa-icon icon="search"></fa-icon>
+        </div>
+        <div class="header-menu">
+          <div ngbDropdown class="d-inline-block mt-1" #headerConversation="ngbDropdown"
+               [class.btn-menu-active]="headerConversation._open">
+            <div class="btn-menu btn-menu-fs" ngbDropdownToggle>
+              <fa-icon icon="ellipsis-vertical"></fa-icon>
+            </div>
+
+            <div ngbDropdownMenu>
+              <button ngbDropdownItem>Rename</button>
+              <button ngbDropdownItem>Exit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>
