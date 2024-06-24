@@ -1,0 +1,10 @@
+<div class="h-100">
+  <div class="d-flex flex-column w-100 overflow-y-auto h-100">
+    @for(conversation of conversations; track conversation.publicId) {
+      <wac-conversation [conversation]="conversation"
+      [connectedUser]="connectedUser!"
+      (delete)="onDeleteConversation($event)"
+      (select)="onSelectConversation($event)"></wac-conversation>
+    }
+  </div>
+</div>

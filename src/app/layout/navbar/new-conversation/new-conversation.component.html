@@ -1,0 +1,31 @@
+<div id="content">
+  <div class="py-4 pb-2 d-flex flex-column justify-content-end" id="header">
+    <div class="d-flex justify-content-start align-items-center mb-1">
+      <fa-icon icon="arrow-left" (click)="onCloseNav()" class="mx-4" id="close"></fa-icon>
+      <div class="title">Add new people</div>
+    </div>
+  </div>
+  <div id="main" class="d-flex flex-column align-items-center">
+    <input [ngModel]="query" (ngModelChange)="onQueryChange($event)"
+           class="form-control w-75 my-5" type="text" placeholder="Search name">
+    <div class="d-flex flex-column w-100 overflow-y-auto">
+      @for(user of usersResults; track user.publicId) {
+        <wac-conversation-selector
+        [title]="user.firstName + ' ' + user.lastName"
+        [subtitle]="'Hi I\'m using Whatsapp clone'"
+        [pictureUrl]="user.imageUrl!"
+        (select)="handleConversation(user.publicId!)"></wac-conversation-selector>
+      }
+    </div>
+    @if(usersResults.length === 0 && !loadingSearch) {
+      <div class="fs-3">
+        No result found
+      </div>
+    }
+   @if(loadingSearch) {
+     <div class="spinner-grow text-primary" role="status">
+       <span class="visually-hidden">Loading...</span>
+     </div>
+   }
+  </div>
+</div>

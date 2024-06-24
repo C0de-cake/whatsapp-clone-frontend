@@ -1,0 +1,57 @@
+<div [class.active]="conversation().active" class="position-relative" (mouseover)="onMouseOver()"
+     (mouseleave)="onMouseLeave()">
+  <div class="conversation-container">
+    <div class="separator"></div>
+    <div class="user d-flex justify-content-between align-items-center p-4"
+         (click)="showConversation()">
+      <div class="d-flex align-content-center">
+        <div class="avatar">
+          @if (contact?.imageUrl) {
+            <img src="{{contact?.imageUrl}}" alt="user avatar" class="avatar-unknown" width="60px"/>
+          } @else {
+            <fa-icon icon="user" class="avatar-unknown"></fa-icon>
+          }
+        </div>
+        <div class="d-flex flex-column ms-3">
+          <div class="fs-4" [class.white-text]="hasUnreadMessage()">{{ computeTitle() }}</div>
+          <div class="fs-6">
+            <div class="subtitle ellipsis">
+              <div class="d-flex justify-content-start align-items-center"
+                   [class.white-text]="hasUnreadMessage() || conversation().active">
+                <wac-send-state-display [message]="getLastMessage()!"></wac-send-state-display>
+                @if (getLastMessage()?.type === "PICTURE") {
+                  <fa-icon class="me-2" [icon]="'image'"></fa-icon>
+                } @else if (getLastMessage()?.type === "AUDIO") {
+                  <fa-icon class="me-2" [icon]="'headphones'"></fa-icon>
+                } @else if (getLastMessage()?.type === "VIDEO") {
+                  <fa-icon class="me-2" [icon]="'video'"></fa-icon>
+                }
+                <div>{{ getLastMessage()?.textContent }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex flex-column justify-content-end align-items-end">
+        <div [class.highlight-time]="hasUnreadMessage()" class="subtitle">{{ computeTime() }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="position-absolute z-3 conversation-menu d-flex align-items-center">
+    @if (hasUnreadMessage()) {
+      <div class="unread-message d-flex me-1 justify-content-center align-items-center mt-2">
+        {{ nbOfUnReadMessage }}
+      </div>
+    }
+    @if (this.showMenu) {
+      <div ngbDropdown class="d-inline-block mt-1" #menuconversation="ngbDropdown"
+           [class.btn-menu-active]="menuconversation._open">
+        <div class="btn-menu" ngbDropdownToggle></div>
+
+        <div ngbDropdownMenu>
+          <button ngbDropdownItem (click)="onDelete()">Delete</button>
+        </div>
+      </div>
+    }
+  </div>
+</div>

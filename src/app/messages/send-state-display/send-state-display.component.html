@@ -1,0 +1,11 @@
+@if(message()) {
+  <div class="send-state d-flex position-relative"
+  [class.message-viewed]="message().state === 'READ'">
+    @if (message().state === 'SENT' || message().state === 'RECEIVED' || message().state === 'READ') {
+    <fa-icon [icon]="'check'"></fa-icon>
+    }
+    @if (message().state === 'RECEIVED' || message().state === 'READ') {
+      <fa-icon class="icon-received position-absolute" [icon]="'check'"></fa-icon>
+    }
+  </div>
+}
