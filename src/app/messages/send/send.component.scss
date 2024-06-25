@@ -1,0 +1,35 @@
+@import "../../../assets/scss/bootstrap-variables";
+
+fa-icon {
+  color: $send-color;
+  cursor: pointer;
+}
+
+.send {
+  background-color: $menu-bg-color;
+  position: relative;
+}
+
+#send-input {
+  height: 45px;
+}
+
+.deactivate {
+  color: $subtitle-color;
+}
+
+.emojis-panel {
+  position: absolute;
+  left: 12px;
+  bottom: 80px;
+}
+
+.menu-active {
+  color: $primary;
+}
+
+.media-panel {
+  position: absolute;
+  left: 55px;
+  bottom: 80px;
+}

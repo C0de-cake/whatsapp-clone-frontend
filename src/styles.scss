@@ -1,6 +1,6 @@
 @import './assets/scss/_bootstrap-variables';
 @import 'bootstrap/scss/bootstrap';
-//@import '@ctrl/ngx-emoji-mart/picker';
+@import '@ctrl/ngx-emoji-mart/picker';
 
 fa-icon {
   color: $icon-color;

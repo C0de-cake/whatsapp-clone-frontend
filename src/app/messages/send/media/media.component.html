@@ -1,0 +1,9 @@
+<div class="d-flex flex-column p-2 main-container">
+  <div (click)="inputFile.click()" class="p-3 d-flex justify-content-center
+  align-items-center audio-video">
+    <fa-icon icon="file-import" size="2x" class="me-3"></fa-icon>
+    <div class="fs-4">Media files</div>
+  </div>
+  <input type="file" accept=".jpg, .jpeg,.png,.svg,.mp4,.mov,.mp3"
+         [hidden]="true" #inputFile (change)="onUploadFile($event.target)"/>
+</div>

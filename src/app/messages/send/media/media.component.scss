@@ -1,0 +1,18 @@
+@import "../../../../assets/scss/bootstrap-variables";
+
+.main-container {
+  background-color: $menu-bg-color;
+  border-radius: 16px;
+}
+
+.audio-video {
+  fa-icon {
+    color: #027BFC;
+  }
+}
+
+.audio-video:hover {
+  background-color: $bg-conversation-color;
+  border-radius: 16px;
+  cursor: pointer;
+}

@@ -80,7 +80,7 @@ export class ConversationService {
     });
   }
 
-  private sortConversationByLastMessage(conversations: Array<Conversation>) {
+  sortConversationByLastMessage(conversations: Array<Conversation>) {
     conversations.sort((conversationA, conversationB) => {
       if (conversationA.messages && conversationB.messages
         && conversationB.messages.length != 0 && conversationA.messages.length != 0) {

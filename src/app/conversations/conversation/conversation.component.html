@@ -2,7 +2,7 @@
      (mouseleave)="onMouseLeave()">
   <div class="conversation-container">
     <div class="separator"></div>
-    <div class="user d-flex justify-content-between align-items-center p-4"
+    <div class="user d-flex justify-content-between p-4"
          (click)="showConversation()">
       <div class="d-flex align-content-center">
         <div class="avatar">
@@ -32,7 +32,7 @@
           </div>
         </div>
       </div>
-      <div class="d-flex flex-column justify-content-end align-items-end">
+      <div class="d-flex pt-1 h-100 flex-column justify-content-end align-items-end">
         <div [class.highlight-time]="hasUnreadMessage()" class="subtitle">{{ computeTime() }}</div>
       </div>
     </div>
