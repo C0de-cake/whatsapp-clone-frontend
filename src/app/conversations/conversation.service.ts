@@ -8,6 +8,7 @@ import {createPaginationOption, Pagination} from "../shared/model/request.model"
 import {environment} from "../../environments/environment";
 import dayjs from "dayjs";
 import {Conversation, ConversationToCreate} from "./model/conversation.model";
+import {MessageMarkAsViewedResponse} from "./model/message.model";
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,9 @@ export class ConversationService {
 
   private getOneByPublicId$ = new Subject<State<Conversation>>();
   getOneByPublicId = this.getOneByPublicId$.asObservable();
+
+  private markAsViewed$ = new Subject<State<MessageMarkAsViewedResponse>>();
+  markAsViewed = this.markAsViewed$.asObservable();
 
   private connectedUser: ConnectedUser | undefined;
 
@@ -139,5 +143,20 @@ export class ConversationService {
 
   getReceiverMember(conversation: Conversation): BaseUser {
     return conversation.members.find(member => member.publicId !== this.connectedUser?.publicId)!;
+  }
+
+  handleMarkAsRead(conversationId: string): void {
+    const params = new HttpParams().set("conversationId", conversationId);
+    this.http.post<number>(`${environment.API_URL}/conversations/mark-as-read`, {}, {params})
+      .subscribe({
+        next: nbUpdatedMessages => {
+          const messagesMarkAsReadResult: MessageMarkAsViewedResponse = {
+            conversationPublicId: conversationId,
+            nbMessagesUpdated: nbUpdatedMessages
+          }
+          this.markAsViewed$.next(State.Builder<MessageMarkAsViewedResponse>().forSuccess(messagesMarkAsReadResult))
+        },
+        error: err => this.markAsViewed$.next(State.Builder<MessageMarkAsViewedResponse>().forError(err))
+      });
   }
 }

@@ -1,0 +1,68 @@
+@if (conversation) {
+  <div #messages class="messages d-flex align-items-center flex-column w-100 overflow-y-auto py-3">
+    @for (messagesWithOneDate of this.messagesByDate; track messagesWithOneDate[0]) {
+      <div class="date px-3 py-2 mb-3">{{ messagesWithOneDate[0] | uppercase }}</div>
+      @for (message of messagesWithOneDate[1]; track message.publicId; let first = $first) {
+        <div [class.justify-content-start]="isMessageFromContact(message.senderId!)"
+             [class.justify-content-end]="!isMessageFromContact(message.senderId!)"
+             [class.first-item]="first"
+             class="my-2 d-flex align-items-center flex-nowrap w-100 position-relative">
+          @if (!isMessageFromContact(message.senderId!)) {
+            <img src="assets/images/corner-chat-self.png" class="position-absolute corner-self"
+                 width="10px" alt="corner-chat"/>
+          } @else {
+            <img src="assets/images/corner-chat-contact.png" class="position-absolute corner-contact"
+                 width="10px" alt="corner-chat"/>
+          }
+          <div class="p-2 d-flex flex-column"
+               [class.from-contact]="isMessageFromContact(message.senderId!)"
+               [class.from-myself]="!isMessageFromContact(message.senderId!)">
+            @if (message.type !== "TEXT") {
+              <div (click)="onClickFile(message)" class="mb-2 attachment">
+                @if (message.type === "AUDIO") {
+                  <div class="d-flex align-items-center p-2">
+                    <fa-icon class="me-2" [icon]="'headphones'" size="2x"></fa-icon>
+                    <div>
+                      <div>Audio file</div>
+                      <div>{{ message.mimeType!.split("/")[1].toUpperCase() }}</div>
+                    </div>
+                  </div>
+                } @else if (message.type === "PICTURE") {
+                  <img [src]="'data:' + message.mimeType + ';base64,' + message.mediaContent" width="400px"
+                       alt="attachment from the chat"/>
+                } @else if (message.type === "VIDEO") {
+                  <div class="d-flex align-items-center p-2">
+                    <fa-icon class="me-2" [icon]="'video'" size="2x"></fa-icon>
+                    <div>
+                      <div>Video file</div>
+                      <div>{{ message.mimeType!.split("/")[1].toUpperCase() }}</div>
+                    </div>
+                  </div>
+                }
+              </div>
+            }
+            <div class="d-flex justify-content-between align-items-center">
+              <div>{{ message.textContent }}</div>
+              <div class="state d-flex align-items-center ms-2">
+                <div class="me-1">{{ message.sendDate?.toDate() | date: 'HH:mm' }}</div>
+                <wac-send-state-display class="me-2" [message]="message"></wac-send-state-display>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    }
+  </div>
+} @else {
+  <div class="splash-screen d-flex w-100 h-100
+  flex-column justify-content-center align-items-center">
+    <img src="assets/images/wa-welcome.png" width="400px" alt="whatsapp welcome"/>
+    <div class="py-4 fs-1">WhatsApp Web</div>
+    <div class="subtitle">
+      Send and receive messages without keeping your phone online.
+    </div>
+    <div class="subtitle">
+      Use WhatsApp on up to 4 linked devices and 1 phone at the same time.
+    </div>
+  </div>
+}

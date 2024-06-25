@@ -1,7 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {ConnectedUser} from "../../shared/model/user.model";
 import {ConversationService} from "../../conversations/conversation.service";
-import {SseService} from "../../messages/sse.service";
 import {Oauth2AuthService} from "../../auth/oauth2-auth.service";
 import {Conversation} from "../../conversations/model/conversation.model";
 import {filter, interval, Subscription} from "rxjs";
@@ -9,6 +8,7 @@ import {ToastService} from "../../shared/toast/toast.service";
 import dayjs from "dayjs";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {NgbDropdown, NgbDropdownItem, NgbDropdownMenu, NgbDropdownToggle} from "@ng-bootstrap/ng-bootstrap";
+import {SseService} from "../../messages/service/sse.service";
 
 @Component({
   selector: 'wac-header',

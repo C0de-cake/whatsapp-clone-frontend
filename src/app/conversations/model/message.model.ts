@@ -14,3 +14,8 @@ export interface Message {
   mimeType?: string,
   senderId?: string
 }
+
+export interface MessageMarkAsViewedResponse {
+  conversationPublicId: string,
+  nbMessagesUpdated: number
+}

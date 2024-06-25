@@ -8,8 +8,8 @@ import {State} from "../shared/model/state.model";
 import {catchError, from, interval, Observable, of, shareReplay, Subject, switchMap} from "rxjs";
 import {fromPromise} from "rxjs/internal/observable/innerFrom";
 import {AuthModalComponent} from "./auth-modal/auth-modal.component";
-import {SseService} from "../messages/sse.service";
 import dayjs, {Dayjs} from "dayjs";
+import {SseService} from "../messages/service/sse.service";
 
 @Injectable({
   providedIn: 'root'

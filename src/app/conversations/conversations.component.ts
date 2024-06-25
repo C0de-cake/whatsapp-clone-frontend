@@ -6,9 +6,9 @@ import {Conversation, ConversationToCreate} from "./model/conversation.model";
 import {Subscription} from "rxjs";
 import {ConnectedUser} from "../shared/model/user.model";
 import {ConversationComponent} from "./conversation/conversation.component";
-import {SseService} from "../messages/sse.service";
 import {MessageService} from "../messages/service/message.service";
 import {Message} from "./model/message.model";
+import {SseService} from "../messages/service/sse.service";
 
 @Component({
   selector: 'wac-conversations',
@@ -34,6 +34,7 @@ export class ConversationsComponent implements OnInit, OnDestroy {
   private getAllSub: Subscription | undefined;
   private getOneByPublicIdSub: Subscription | undefined;
   private deleteSSESub: Subscription | undefined;
+  private viewedMessageSSESub: Subscription | undefined;
 
   connectedUser: ConnectedUser | undefined;
 
@@ -72,6 +73,10 @@ export class ConversationsComponent implements OnInit, OnDestroy {
     if (this.deleteSSESub) {
       this.deleteSSESub.unsubscribe();
     }
+
+    if(this.viewedMessageSSESub) {
+      this.viewedMessageSSESub.unsubscribe();
+    }
   }
 
   ngOnInit(): void {
@@ -81,6 +86,7 @@ export class ConversationsComponent implements OnInit, OnDestroy {
     this.listenToNavigateToConversation();
     this.listenToSSEDeleteConversation();
     this.listenToSSENewMessage();
+    this.listenToSSEViewMessage();
   }
 
   private listenToGetAllConversation(): void {
@@ -123,6 +129,7 @@ export class ConversationsComponent implements OnInit, OnDestroy {
         const existingConversation = this.conversations.find(conversation => conversation.members
           .findIndex(member => member.publicId === userPublicId) !== -1);
         if (existingConversation) {
+          this.conversationService.handleMarkAsRead(existingConversation.publicId);
           this.conversationService.navigateToNewConversation(existingConversation);
         } else {
           const newConversation: ConversationToCreate = {
@@ -144,6 +151,7 @@ export class ConversationsComponent implements OnInit, OnDestroy {
     }
     this.selectedConversation = conversation;
     this.selectedConversation.active = true;
+    this.conversationService.handleMarkAsRead(conversation.publicId);
     this.conversationService.navigateToNewConversation(conversation);
   }
 
@@ -174,4 +182,20 @@ export class ConversationsComponent implements OnInit, OnDestroy {
       this.conversationService.sortConversationByLastMessage(this.conversations);
     });
   }
+
+  private listenToSSEViewMessage(): void {
+   this.viewedMessageSSESub = this.sseService.viewMessages.subscribe(
+     conversationViewedForNotification => {
+       if(this.selectedConversation?.publicId === conversationViewedForNotification.conversationId) {
+         conversationViewedForNotification.messageIdsViewed.forEach(messageId => {
+           const messageToUpdate = this.selectedConversation?.messages.find(message => message.publicId === messageId)
+           if(messageToUpdate) {
+             messageToUpdate.state = "READ";
+           }
+         })
+       }
+     }
+   )
+  }
+
 }

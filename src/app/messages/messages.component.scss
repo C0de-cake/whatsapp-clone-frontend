@@ -1,0 +1,57 @@
+@import "../../assets/scss/bootstrap-variables";
+
+.corner-self {
+  top: 0;
+  right: -10px
+}
+
+.corner-contact {
+  top: 0;
+  left: -10px
+}
+
+.splash-screen {
+  background-color: $menu-bg-color;
+}
+
+.messages {
+  padding-left: 80px;
+  padding-right: 80px;
+  height: calc(100vh - ($main-margin * 2) - $header-height - $send-height);
+  background: repeat, linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
+  url("./../../assets/images/background-chat.png");
+  background-size: 412.5px 749.25px;
+}
+
+.state {
+  color: $message-state;
+  font-size: 13px;
+  transform: translate(0, 9px);
+}
+
+.from-contact {
+  background-color: $menu-bg-color;
+  border-radius: 0 10px 10px 10px;
+}
+
+.from-myself {
+  background-color: $message-bg-color;
+  border-radius: 10px 0 10px 10px;
+}
+
+.first-item {
+  margin-top: auto !important;
+}
+
+.attachment {
+  cursor: pointer;
+  width: 400px;
+  border-radius: 10px;
+  background-color: #025143;
+}
+
+.date {
+  background-color: $menu-bg-color;
+  border-radius: 10px;
+  color: $secondary;
+}
