@@ -1,27 +1,29 @@
-# WhatsappCloneFront
+# Whatsapp clone (fullstack project) Spring boot 3, Angular 18, Bootstrap, PostgreSQL, Keycloak (2024) (Frontend)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.4.
+Angular frontend of the whatsapp clone
 
-## Development server
+[Video tutorial](https://youtu.be/Ot7QE_gzhtA)
 
+[Spring boot Backend](https://github.com/C0de-cake/whatsapp-clone-backend)
+
+### Key Features:
+- 💬 Real-time messaging
+- 👥 Conversations management
+- 📁 File sharing (images, videos, documents)
+- 🔐 Authentication and Authorization (Role management) with Keycloak (OAuth2)
+
+
+## Usage
+### Prerequisites
+- [NodeJS 20.11 LTS](https://nodejs.org/dist/v20.11.1/node-v20.11.1.pkg)
+- [Angular CLI v18](https://www.npmjs.com/package/@angular/cli)
+- IDE ([VSCode](https://code.visualstudio.com/download), [IntelliJ](https://www.jetbrains.com/idea/download/))
+
+### Fetch dependencies
+``npm install``
+
+### Launch dev server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
+### Build
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
